@@ -9,7 +9,7 @@ body {
   justify-content: center;
   min-width: 100vw;
   min-height: 100vh;
-  flex-direction: column-reverse;
+  flex-direction: column;
 }
 
 .keyboard {
@@ -20,8 +20,9 @@ body {
 }
 textarea {
   width: 1120px;
-  height: 300px;
+  height: 200px;
   margin-bottom: 20px;
+  font-size: 20px;
 }
 
 .row {
@@ -50,16 +51,16 @@ textarea {
   box-sizing: border-box;
   cursor: pointer;
 }
-/*img {
-  width: 20px;
-  height: 20px;
-}*/
 
-.key:hover {
+
+.key:active {
   background: #75818a;
   color: #000;
 }
-
+.active {
+  background: #75818a;
+  color: #000;
+}
 .space {
 width: 400px;
 
