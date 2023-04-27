@@ -96,9 +96,6 @@ function printKeydownOnKeyboard(e) {
       if (!elem.classList.contains('utility')) {
         textarea.value += e.key;
       }
-      if (elem.textContent === 'Shift' && elem.textContent === 'Ctrl') {
-        console.log('hey');
-      }
     }
   });
 }
@@ -116,10 +113,7 @@ function printKeyupOnKeyboard(e) {
 document.addEventListener('keyup', printKeyupOnKeyboard);
 
 // Click mouse on key
-// textarea.value = '';
-// let caps = false;
-const rowSection = document.querySelectorAll('.row');
-const rowShSection = document.querySelectorAll('.rowSh');
+
 const buttons = document.querySelectorAll('button');
 function printOnClick(e) {
   buttons.forEach((elem) => {
@@ -134,6 +128,9 @@ function printOnClick(e) {
           break;
         case 'Space':
           textarea.value += ' ';
+          break;
+        case 'Tab':
+          textarea.value += '    ';
           break;
         case 'Alt':
           textarea.value += '';
@@ -150,20 +147,19 @@ function printOnClick(e) {
     }
   });
 }
-/*
-    if (e.target === elem && !elem.classList.contains('utility')) {
-      const current = e.target;
-      textarea.value += current.textContent;
-    }
-*/
+
 document.addEventListener('click', printOnClick);
 
 // Functionality for Shift
 function shiftDownHandler(e) {
-  // const rowSection = document.querySelectorAll('.row');
-  if (e.code === 'ShiftLeft') {
+  const rowSection = document.querySelectorAll('.row');
+  const shift = document.querySelector('button');
+  if (shift.innerHTML === 'Shift') { shift.classList.add('active'); }
+  if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
     rowSection.forEach((elem) => elem.remove());
     createAllButtons(arr2Row, 'rowSh');
+    document.removeEventListener('keydown', printKeydownOnKeyboard);
+    document.addEventListener('keydown', printKeydownOnKeyboard);
   }
   e.repeat = false;
   document.removeEventListener('keydown', shiftDownHandler);
@@ -171,8 +167,8 @@ function shiftDownHandler(e) {
 }
 
 function shiftUpHandler(e) {
-  // const rowShSection = document.querySelectorAll('.rowSh');
-  if (e.code === 'ShiftLeft') {
+  const rowShSection = document.querySelectorAll('.rowSh');
+  if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
     rowShSection.forEach((elem) => elem.remove());
     createAllButtons(arr1Row, 'row');
   }
@@ -182,4 +178,18 @@ function shiftUpHandler(e) {
 
 document.addEventListener('keydown', shiftDownHandler);
 document.addEventListener('keyup', shiftUpHandler);
-document.addEventListener('click', shiftDownHandler);
+
+document.addEventListener('keydown', (e) => {
+  e.preventDefault();
+  const isCapsL = e.getModifierState('CapsLock');
+  if (e.code === 'CapsLock') {
+    if (isCapsL === true) {
+      document.querySelectorAll('.row').forEach((elem) => elem.remove());
+      createAllButtons(arr2Row, 'rowSh');
+      document.addEventListener('keydown', printKeydownOnKeyboard);
+    } else if (isCapsL === false) {
+      document.querySelectorAll('.rowSh').forEach((elem) => elem.remove());
+      createAllButtons(arr1Row, 'row');
+    }
+  }
+});
