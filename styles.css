@@ -80,24 +80,22 @@ width: 400px;
 
 @keyframes push {
   0% {
-    transform: translate(10px, 10px);
+    transform: translate(5px, 5px);
   }
-  
   20% {
-    transform: translate(1px, 1px);
+    transform: translate(2px, 2px);
   }
-  
   40% {
-    transform: translate(10px, 10px);
+    transform: translate(5px, 5px);
   }
   60% {
-    transform: translate(1px, 1px);
+    transform: translate(2px, 2px);
   }
   80% {
-    transform: translate(10px, 10px);
+    transform: translate(5px, 5px);
   }
   100% {
-    transform: translate(1px, 1px);
+    transform: translate(2px, 2px);
   }
 }
 
