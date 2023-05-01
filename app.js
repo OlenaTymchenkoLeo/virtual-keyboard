@@ -85,10 +85,10 @@ function createButton(text) {
 function createRow(row, classSec) {
   const section = document.createElement('section');
   section.classList.add(classSec);
-  for (let i = 0; i < row.length; i++) {
-    const currentButton = createButton(row[i]);
+  row.forEach((rowBut) => {
+    const currentButton = createButton(rowBut);
     section.append(currentButton);
-  }
+  });
   return section;
 }
 
